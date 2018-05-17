@@ -1,0 +1,104 @@
+h3 用户管理
+
+#container.row(style='overflow-y: scroll')
+
+    form.col-lg-3(name='filtrate')
+        h4.m0.pb-lg 筛选
+            .form-group
+                label.col-lg-3.h4 角色
+                .col-lg-6
+                    select.form-control(ng-options=' item.key as item.value for item in RoleTypeList', ng-model='search.role')
+                    .form-group.text-right
+            p.col-lg-9.input-group
+                input.form-control(type='text', placeholder='用户账户 ', ng-model='search.account')
+            p.col-lg-9.input-group
+                input.form-control(type='text', placeholder='用户名称 ', ng-model='search.username')
+            p.col-lg-9
+                button.btn.btn-block.btn-success(type='button', ng-click='searchUserList()') 查找
+            p.col-lg-9
+                button.btn.btn-block.btn-default(type='button', ng-click='resetSearch()') 重置
+    .col-lg-9
+        // START panel
+        .panel.panel-default
+            tabset
+                .pull-right
+                    button.btn.btn-success(type='button', ng-dialog='modifyUser',ng-dialog-data='{"new":true}',  ng-dialog-close-by-document='false') 新增
+                tab(heading='搜索结果')
+                    // START table-responsive
+
+                    .table-responsive
+                        table.table.table-condensed.table-bordered.table-hover
+                            thead
+                                tr
+                                    th.col-lg-1 Id
+                                    th.col-lg-1 账户
+                                    th.col-lg-2 姓名
+                                    th.col-lg-1 角色
+                            tbody(ng-repeat='item in items',ng-dialog='modifyUser', ng-dialog-data='{{item}}',  ng-dialog-close-by-document='false')
+                                tr
+                                    td {{item.id}}
+                                    td {{item.account}}
+                                    td {{item.username}}
+                                    td {{RoleTypeMapping[item.role]}}
+                            tfoot
+                                tr(ng-if='results.length===0')
+                                    td(colspan='11') 暂无数据
+                    // END table-responsive
+                    .row
+                        .col-lg-6
+                        .col-lg-6.text-right
+                            pagination.pagination-sm(total-items='totalItems', ng-model='search.page', ng-change='pageChanged()', items-per-page='search.size', max-size='5', boundary-links='true', previous-text='‹', next-text='›', first-text='«', last-text='»')
+
+
+
+
+
+script(type="text/ng-template", id="modifyUser")
+    div(ng-controller='ModifyUserCtrl')
+        h3.mt0 查看用户
+        .row
+            form.form-horizontal
+                .form-group
+                    label.col-lg-3.control-label 账户
+                    .col-lg-8
+                        input.form-control(type='text', placeholder='请输入账户', ng-model='ngDialogData.account')
+                .form-group
+                    label.col-lg-3.control-label 姓名
+                    .col-lg-8
+                        input.form-control(type='text', placeholder='请输入姓名', ng-model='ngDialogData.username')
+                .form-group(ng-if='!ngDialogData.new')
+                    label.col-lg-3.control-label 部门列表
+                    .col-lg-3
+                        select.form-control(ng-options='item.departmentName for item in departmentList', ng-model='department')
+                        .form-group.text-right
+                    .col-lg-3
+                        input.form-control(type='text', placeholder='职位', ng-model='level')
+                    .col-lg-2
+                        button.btn.btn-success(type='button', ng-click='add()') 添加
+                .form-group(ng-if='!ngDialogData.new')
+                    .col-lg-3
+                    .col-lg-8
+                        .table-responsive
+                            table.table.table-condensed.table-bordered.table-hover
+                                thead
+                                    tr
+                                        th.col-lg-4 部门名称
+                                        th.col-lg-2 职位
+                                        th.col-lg-2 操作
+                                tbody(ng-repeat='item in relations')
+                                    tr
+                                        td {{item.departmentName}}
+                                        td {{item.level}}
+                                        td
+                                            button.btn.btn-primary(type='button', ng-click='delete(item.id)') 删除
+                                tfoot
+                                    tr(ng-if='results.length===0')
+                                        td(colspan='11') 暂无数据
+                .form-group
+                    label.col-lg-3.control-label 角色
+                    .col-lg-8
+                        select.form-control(ng-options=' item.key as item.value for item in RoleTypeList', ng-model='ngDialogData.role')
+                        .form-group.text-right
+        .row
+            .col-lg-offset-1
+                button.btn.btn-primary(type='button', ng-click='save()') 确定

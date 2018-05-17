@@ -6,7 +6,6 @@
 App.controller('FileUploadController', ['$scope', '$rootScope', 'FileUploader', '$http', function ($scope, $rootScope, FileUploader, $http) {
 
     var uploader = $scope.uploader = new FileUploader({
-        //url: '/merchant/addmediaResouce.action',
         url: 'http://upload.qiniu.com/',
         queueLimit: 1
     });

@@ -1,0 +1,12 @@
+h3 上传模板
+
+#container.row(style='overflow-y: scroll')
+    .col-lg-9
+        .row
+            form.form-horizontal
+                .form-group
+                    label.col-lg-3.control-label 名称
+                    .col-lg-4
+                        input.form-control(type='file',ng-model='myFile',accept='application/vnd.ms-excel')
+                    .col-lg-4
+                        button.btn.btn-primary(type='button', ng-click='upload()') 上传

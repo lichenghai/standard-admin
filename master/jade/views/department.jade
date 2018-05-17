@@ -1,0 +1,43 @@
+h3 部门管理
+
+#container.row(style='overflow-y: scroll')
+    .col-lg-9
+        // START panel
+        .panel.panel-default
+            .pull-right
+                button.btn.btn-success(type='button', ng-dialog='modifyDepartment',ng-dialog-data='{"new":true}',  ng-dialog-close-by-document='false') 新增
+            // START table-responsive
+            .table-responsive
+                table.table.table-condensed.table-bordered.table-hover
+                    thead
+                        tr
+                            th.col-lg-1 Id
+                            th.col-lg-2 名称
+                            th.col-lg-1 操作
+                    tbody(ng-repeat='item in items')
+                        tr
+                            td {{item.id}}
+                            td {{item.departmentName}}
+                            td
+                               button.btn.btn-success(type='button', ng-dialog='modifyDepartment',ng-dialog-data='{{item}}',  ng-dialog-close-by-document='false') 修改
+                    tfoot
+                        tr(ng-if='items.length===0')
+                            td(colspan='11') 暂无数据
+
+
+script(type="text/ng-template", id="modifyDepartment")
+    div(ng-controller='ModifyDepartmentCtrl')
+        h3.mt0 查看部门
+        .row
+            form.form-horizontal
+                .form-group
+                    label.col-lg-3.control-label 名称
+                    .col-lg-8
+                        input.form-control(type='text', placeholder='请输入部门名称', ng-model='ngDialogData.departmentName')
+                .form-group(ng-if='false')
+                    label.col-lg-3.control-label 类型
+                    .col-lg-8
+                        input.form-control(type='text', placeholder='请输入部门类型', ng-model='ngDialogData.departmentType')
+        .row
+            .col-lg-offset-1
+                button.btn.btn-primary(type='button', ng-click='save()') 确定

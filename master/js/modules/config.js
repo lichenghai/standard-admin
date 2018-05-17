@@ -26,54 +26,27 @@ App.config(['$stateProvider', '$locationProvider', '$urlRouterProvider', 'RouteH
                     controller: 'AppController',
                     resolve: helper.resolveFor('fastclick', 'modernizr', 'icons', 'screenfull', 'animo', 'sparklines', 'slimscroll', 'classyloader', 'toaster', 'whirl', 'bootbox', 'moment')
                 })
-                .state('app.search', {
-                    url: '/search',
-                    title: '检索本人绩效',
-                    templateUrl: helper.basepath('search.html'),
+                .state('app.department', {
+                    url: '/department',
+                    title: '部门管理',
+                    templateUrl: helper.basepath('department.html'),
                     resolve: helper.resolveFor('ngDialog'),
-                    controller: 'SearchController'
+                    controller: 'DepartmentController'
                 })
-                .state('app.evaluate', {
-                    url: '/evaluate',
-                    title: '填写个人考评',
-                    templateUrl: helper.basepath('evaluate.html'),
+                .state('app.user', {
+                    url: '/user',
+                    title: '用户管理',
+                    templateUrl: helper.basepath('user.html'),
                     resolve: helper.resolveFor('ngDialog'),
-                    controller: 'EvaluateController'
+                    controller: 'UserController'
                 })
-                .state('app.result', {
-                    url: '/result',
-                    title: '查看本人绩效',
-                    templateUrl: helper.basepath('result.html'),
-                    resolve: helper.resolveFor('ngDialog'),
-                    controller: 'ResultController'
-                })
-                .state('app.setting', {
-                    url: '/setting',
-                    title: '个人信息维护',
-                    templateUrl: helper.basepath('setting.html'),
-                    resolve: helper.resolveFor('ngDialog'),
-                    controller: 'SearchController'
-                })
-                .state('app.graph', {
-                    url: '/graph',
-                    title: '查看本人成长曲线',
-                    templateUrl: helper.basepath('graph.html'),
-                    resolve: helper.resolveFor('ngDialog', 'chartjs'),
-                    controller: 'GraphController'
-                })
-                .state('app.account', {
-                    url: '/account',
-                    title: ' 账户信息',
-                    templateUrl: helper.basepath('account.html'),
-                    resolve: helper.resolveFor('ngDialog', 'ngImgCrop', 'filestyle', 'angularFileUpload'),
-                    controller: 'AccountController'
-                })
-                .state('app.adstatistics', {
-                    url: '/adstatistics',
-                    title: '评论统计',
-                    templateUrl: helper.basepath('adstatistics.html')   ,
-                    controller: 'AdstatisticsController'
-                })
+                .state('app.template', {
+                url: '/template',
+                title: '用户管理',
+                templateUrl: helper.basepath('template.html'),
+                resolve: helper.resolveFor('ngDialog'),
+                controller: 'TemplateController'
+            })
                 .state('login', {
                     url: '/login',
                     title: '登录',
