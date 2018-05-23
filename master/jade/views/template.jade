@@ -1,8 +1,14 @@
 h3 上传模板
 
 #container.row(style='overflow-y: scroll')
+
     .col-lg-9
         .row
+            form.form-horizontal
+                label.col-lg-3.control-label 部门列表
+                .col-lg-3
+                    select.form-control(ng-options='item.departmentName for item in departmentList', ng-model='department')
+                    .form-group.text-right
             form.form-horizontal
                 .form-group
                     label.col-lg-3.control-label 名称
